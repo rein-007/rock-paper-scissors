@@ -14,15 +14,22 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice(number) {
-    let humanChoice = prompt('You: ' + humanScore + ' Computer: ' + computerScore + '\n' + result + '\n\nGame #' + number +':\nRock, Paper or Scissors?');
-    humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
-    if (choices.includes(humanChoice)) {
-        return humanChoice;
-    } else {
-        return getHumanChoice();
-    }
-}
+// function getHumanChoice() {
+//     const btn = document.querySelectorAll('button');
+//     let humanChoice = '';
+    // let humanChoice = prompt('You: ' + humanScore + ' Computer: ' + computerScore + '\n' + result + '\n\nGame #' + number +':\nRock, Paper or Scissors?');
+    // humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
+    // btn.forEach((button) => {
+    //     button.addEventListener('click', () => {
+    //         humanChoice = button.className;
+    //     });
+    // });
+    // if (choices.includes(humanChoice)) {
+    //     return humanChoice;
+    // } else {
+    //     return getHumanChoice();
+    // }
+// }
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -45,6 +52,8 @@ function playRound(humanChoice, computerChoice) {
     } else if (humanChoice === 'Scissors' && computerChoice === 'Paper') {
         humanScore++;
         result = 'You win! Scissors beats Paper.';
+    } else {
+        result = 'Error!';
     }
 
     console.log(result);
@@ -52,11 +61,23 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    let i = 1;
-    while(i<=5) {
-        const humanSelection = getHumanChoice(i);
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        i++
-    }
+    const btn = document.querySelectorAll('button');
+    let humanSelection = '';
+    btn.forEach((button) => {
+        button.addEventListener('click', () => {
+            humanSelection = button.className;
+        });
+    });
+
+    // humanSelection = humanSelection.charAt(0).toUpperCase() + humanSelection.slice(1).toLowerCase();
+    // let i = 1;
+    // while(i<=5) {
+        // const humanSelection = getHumanChoice(i);
+        // const computerSelection = getComputerChoice();
+        // playRound(humanSelection, computerSelection);
+    //     i++
+    // }
+    console.log(humanSelection);
+    // console.log(computerSelection);
+
 }

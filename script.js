@@ -1,7 +1,40 @@
 let humanScore = 0;
 let computerScore = 0;
 let result = '';
-const choices = ['Rock', 'Paper', 'Scissors'];
+const div = document.querySelector('.result');
+const btn = document.querySelectorAll('button');
+let humanSelection = '';
+const computerSelection = getComputerChoice();
+paraScore();
+
+btn.forEach((button) => {
+    button.addEventListener('click', () => {
+        humanSelection = button.className;
+        clearContent();
+        playRound(humanSelection, computerSelection);
+    });
+});
+
+function clearContent() {
+    while(div.firstChild) { 
+        div.removeChild(div.firstChild); 
+    }
+}
+
+function paraScore() {
+    const para = document.createElement('p');
+    para.classList.add('score');
+    para.innerHTML += '<br>Score:<br><br>You:  ' + humanScore + '<br>Computer:  ' + computerScore;
+    div.appendChild(para);
+}
+
+function clearScore() {
+    humanScore = 0;
+    computerScore = 0;
+    result = '';
+    clearContent();
+    paraScore();
+}
 
 function getComputerChoice() {
     const computerChoice = Math.random();
@@ -13,23 +46,6 @@ function getComputerChoice() {
         return 'Scissors';
     }
 }
-
-// function getHumanChoice() {
-//     const btn = document.querySelectorAll('button');
-//     let humanChoice = '';
-    // let humanChoice = prompt('You: ' + humanScore + ' Computer: ' + computerScore + '\n' + result + '\n\nGame #' + number +':\nRock, Paper or Scissors?');
-    // humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
-    // btn.forEach((button) => {
-    //     button.addEventListener('click', () => {
-    //         humanChoice = button.className;
-    //     });
-    // });
-    // if (choices.includes(humanChoice)) {
-    //     return humanChoice;
-    // } else {
-    //     return getHumanChoice();
-    // }
-// }
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -56,28 +72,18 @@ function playRound(humanChoice, computerChoice) {
         result = 'Error!';
     }
 
-    console.log(result);
-    console.log('Score:\nYou: ' + humanScore + '\nComputer: ' + computerScore);
-}
+    const para2 = document.createElement('p');
+    para2.classList.add('stat');
+    para2.innerHTML += result;
 
-function playGame() {
-    const btn = document.querySelectorAll('button');
-    let humanSelection = '';
-    btn.forEach((button) => {
-        button.addEventListener('click', () => {
-            humanSelection = button.className;
-        });
-    });
+    div.appendChild(para2);
+    paraScore();
 
-    // humanSelection = humanSelection.charAt(0).toUpperCase() + humanSelection.slice(1).toLowerCase();
-    // let i = 1;
-    // while(i<=5) {
-        // const humanSelection = getHumanChoice(i);
-        // const computerSelection = getComputerChoice();
-        // playRound(humanSelection, computerSelection);
-    //     i++
-    // }
-    console.log(humanSelection);
-    // console.log(computerSelection);
-
+    if (humanScore===5) {
+        alert('Congratulations! You won on this match...');
+        clearScore();
+    } else if (computerScore===5) {
+        alert('Try again, Next time! Computer won on this match...');
+        clearScore();
+    }
 }

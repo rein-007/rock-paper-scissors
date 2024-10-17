@@ -4,12 +4,12 @@ let result = '';
 const div = document.querySelector('.result');
 const btn = document.querySelectorAll('button');
 let humanSelection = '';
-const computerSelection = getComputerChoice();
 paraScore();
 
 btn.forEach((button) => {
     button.addEventListener('click', () => {
         humanSelection = button.className;
+        const computerSelection = getComputerChoice();
         clearContent();
         playRound(humanSelection, computerSelection);
     });
@@ -37,10 +37,11 @@ function clearScore() {
 }
 
 function getComputerChoice() {
-    const computerChoice = Math.random();
-    if (computerChoice <= (1/3)) {
+    const computerChoice = Math.floor(Math.random() * 100);
+    console.log(computerChoice);
+    if (computerChoice <= 33) {
         return 'Rock';
-    } else if (computerChoice <= (2/3)) {
+    } else if (computerChoice <= 66) {
         return 'Paper';
     } else {
         return 'Scissors';
